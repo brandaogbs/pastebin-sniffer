@@ -10,9 +10,9 @@ def get_sh(command):#retorna linha (url) por linha pro conn_pbin
     while True:
         output = p.stdout.readline()
         if output:
-        	print output.strip()
+        	print "url: ", output.strip()
 	else: 
-		print "escape ;X"
+		print "escape :("
 		break
 
 #def wget_filter():
@@ -22,13 +22,13 @@ def get_sh(command):#retorna linha (url) por linha pro conn_pbin
 #   		print '\t', line.strip()
 
 def check_content(content):#vai checar o assunto do conn_pbin
-	
+	print "nothing"	
 
 
 def conn_pbin(): #vai abrir o site apartir de cada linha do get_sh
-	url = get_sh('cat get_info.sh')
+	url = get_sh('./get_links.sh')
 	
 	
-#print conn_pbin()
+print conn_pbin()
 
 
