@@ -18,7 +18,6 @@ def get_sh(command):
                         print "Escape :("
                         break
 
-# Main function
 def init_pastebin():
         url = get_sh('./get_links.sh')
 
@@ -36,9 +35,7 @@ def raw_content(url):
 			for i in content:
 				if (i.__contains__(key)):
 					print "True ========> ", url
-					
-					
-
+					return	None
 def get_raw_text(subreddit):
     raw_text = []
     r = requests.get(subreddit)
@@ -48,8 +45,5 @@ def get_raw_text(subreddit):
     for a in soup.findAll('textarea'):
         raw_text.append(a.text)
     return raw_text
-
-#for i in get_links_from(url):
-#    print "%s" % (link_name)
 
 print init_pastebin()
