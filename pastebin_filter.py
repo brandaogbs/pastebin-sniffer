@@ -3,11 +3,11 @@
 
 import subprocess
 import shlex
-#import dis
 import requests
 import BeautifulSoup
 
-def get_sh(command):#retorna linha (url) por linha pro conn_pbin
+
+def get_sh(command):
         p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
         while True:
                 output = p.stdout.readline()
@@ -18,19 +18,26 @@ def get_sh(command):#retorna linha (url) por linha pro conn_pbin
                         print "Escape :("
                         break
 
+# Main function
 def init_pastebin():
         url = get_sh('./get_links.sh')
 
 def raw_content(url):
         content = get_raw_text(url)
+	#print "======================================================="
+	for i in content:
+		print "BTC  ========> %s" % i.__contains__("btc")
+		print "LOGIN  ======> %s" % i.__contains__("login")
+		print "PASSWORD ====> %s" % i.__contains__("password")
+		print "PRINT  ======> %s" % i.__contains__("print")
+		print "DOX =========> %s" % i.__contains__("dox")
+	print "======================================================="
 
 def get_raw_text(subreddit):
     raw_text = []
     r = requests.get(subreddit)
     if r.status_code != 200:
         return None
-
-
     soup = BeautifulSoup.BeautifulSoup(r.content)
     for a in soup.findAll('textarea'):
         raw_text.append(a.text)
