@@ -11,7 +11,6 @@ cat swap \
         |grep href \
         |sed -e :a -e 's/<a href="//g' \
         |sed "s/\"><\/a>//g" \
-        |uniq \
         > archive
  
 for i in `cat archive`;
