@@ -24,9 +24,9 @@ def init_pastebin():
 
 def raw_content(url):
         content = get_raw_text(url)
-	print "======================================================="
+	#print "======================================================="
 	for i in content:
-		print "%s" % i
+		print "%s" % i.__contains__("print")
 	print "======================================================="
 
 def get_raw_text(subreddit):
