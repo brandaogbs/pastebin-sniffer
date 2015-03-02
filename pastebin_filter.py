@@ -4,31 +4,40 @@
 import subprocess
 import shlex
 #import dis
+import requests
+import BeautifulSoup
 
 def get_sh(command):#retorna linha (url) por linha pro conn_pbin
-    p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
-    while True:
-        output = p.stdout.readline()
-        if output:
-        	print "url: ", output.strip()
-	else: 
-		print "escape :("
-		break
+        p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
+        while True:
+                output = p.stdout.readline()
+                if output:
+                        print "Try: ", output.strip()
+                        raw_content(output.strip())
+                else:
+                        print "Escape :("
+                        break
 
-#def wget_filter():
-#	end_of_pipeu= grep.stdout
-#	print 'SAIDA ENDPIPE:'
-#	for line in end_of_pipe:
-#   		print '\t', line.strip()
+def init_pastebin():
+        url = get_sh('./get_links.sh')
 
-def check_content(content):#vai checar o assunto do conn_pbin
-	print "nothing"	
+def raw_content(url):
+        content = get_raw_text(url)
+
+def get_raw_text(subreddit):
+    raw_text = []
+    r = requests.get(subreddit)
+    if r.status_code != 200:
+        return None
 
 
-def conn_pbin(): #vai abrir o site apartir de cada linha do get_sh
-	url = get_sh('./get_links.sh')
-	
-	
-print conn_pbin()
+    soup = BeautifulSoup.BeautifulSoup(r.content)
+    for a in soup.findAll('textarea'):
+        raw_text.append(a.text)
+    return raw_text
 
+#for i in get_links_from(url):
+#    print "%s" % (link_name)
+
+print init_pastebin()
 
