@@ -5,7 +5,7 @@ import subprocess
 import shlex
 import requests
 import BeautifulSoup
-
+import sys
 
 def get_sh(command):
         p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
@@ -22,16 +22,22 @@ def get_sh(command):
 def init_pastebin():
         url = get_sh('./get_links.sh')
 
+def open_dictionary():
+	with open(sys.argv[1], 'r') as file:
+		f = file.read()
+		dictionary = f.split('\n')
+		return dictionary
+
 def raw_content(url):
         content = get_raw_text(url)
-	#print "======================================================="
-	for i in content:
-		print "BTC  ========> %s" % i.__contains__("btc")
-		print "LOGIN  ======> %s" % i.__contains__("login")
-		print "PASSWORD ====> %s" % i.__contains__("password")
-		print "PRINT  ======> %s" % i.__contains__("print")
-		print "DOX =========> %s" % i.__contains__("dox")
-	print "======================================================="
+	dic = open_dictionary()
+	for key in dic:
+		if key:
+			for i in content:
+				if (i.__contains__(key)):
+					print "True ========> ", url
+					
+					
 
 def get_raw_text(subreddit):
     raw_text = []
@@ -47,4 +53,3 @@ def get_raw_text(subreddit):
 #    print "%s" % (link_name)
 
 print init_pastebin()
-
