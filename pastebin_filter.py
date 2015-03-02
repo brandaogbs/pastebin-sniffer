@@ -26,7 +26,11 @@ def raw_content(url):
         content = get_raw_text(url)
 	#print "======================================================="
 	for i in content:
-		print "%s" % i.__contains__("print")
+		print "BTC  ========> %s" % i.__contains__("btc")
+		print "LOGIN  ======> %s" % i.__contains__("login")
+		print "PASSWORD ====> %s" % i.__contains__("password")
+		print "PRINT  ======> %s" % i.__contains__("print")
+		print "DOX =========> %s" % i.__contains__("dox")
 	print "======================================================="
 
 def get_raw_text(subreddit):
