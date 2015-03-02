@@ -2,7 +2,7 @@
  
 rm archive*
  
-wget http://pastebin.com/archive
+wget http://pastebin.com/archive &> /dev/null
 cat archive | grep i_p0 > swap
  
 cat swap \
