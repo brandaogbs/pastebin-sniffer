@@ -6,16 +6,22 @@ import shlex
 import requests
 import BeautifulSoup
 import sys
+import time
+
+flag=""
+lastflag=""
 
 def get_sh(command):
+	global flag
+	global lastflag
         p = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE)
-        while True:
+        flag = p.stdout.readline().strip()
+	while True:
                 output = p.stdout.readline()
-                if output:
-                        print "Try: ", output.strip()
-                        raw_content(output.strip())
-                else:
-                        print "Escape :("
+		if output and (str(output).strip() != str(lastflag).strip()):
+			raw_content(output.strip())
+		else:
+			lastflag = flag
                         break
 
 def init_pastebin():
@@ -34,11 +40,13 @@ def raw_content(url):
 		if key:
 			for i in content:
 				if (i.__contains__(key)):
-					print "True ========> ", url
-					return	None
-def get_raw_text(subreddit):
+					print "Relevant :", url
+					return None					
+					
+
+def get_raw_text(url):
     raw_text = []
-    r = requests.get(subreddit)
+    r = requests.get(url)
     if r.status_code != 200:
         return None
     soup = BeautifulSoup.BeautifulSoup(r.content)
@@ -46,4 +54,6 @@ def get_raw_text(subreddit):
         raw_text.append(a.text)
     return raw_text
 
-print init_pastebin()
+while(True):
+	print init_pastebin()
+	time.sleep(66)
